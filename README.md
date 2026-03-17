@@ -41,22 +41,54 @@ In timing diagram Q0 is changing as soon as the negative edge of clock pulse is 
  Developed by:Bharathy M
  RegisterNumber: 212225040046\25013139
 */
-module expt6(clk,rst,t,A,B,C,D); 
-input clk,rst,t; 
-output A,B,C,D;
-reg A,B,C,D;
+module exp6(
+   input  wire clk,      
+   input  wire reset_n,  
+   output reg  [3:0] q   
+);
 
-Tff T0(D,clk,rst,t); 
-Tff T1(C,D,rst,t); 
-Tff T2(B,C,rst,t); 
-Tff T3(A,B,rst,t); 
+
+   always @(negedge clk or negedge reset_n) begin
+       if (!reset_n)
+           q[0] <= 1'b0;
+       else
+           q[0] <= ~q[0];
+   end
+
+
+   always @(negedge q[0] or negedge reset_n) begin
+       if (!reset_n)
+           q[1] <= 1'b0;
+       else
+           q[1] <= ~q[1];
+   end
+
+
+   always @(negedge q[1] or negedge reset_n) begin
+       if (!reset_n)
+           q[2] <= 1'b0;
+       else
+           q[2] <= ~q[2];
+   end
+
+
+   always @(negedge q[2] or negedge reset_n) begin
+       if (!reset_n)
+           q[3] <= 1'b0;
+       else
+           q[3] <= ~q[3];
+   end
 
 endmodule 
 
 ```
 **RTL LOGIC FOR 4 Bit Ripple Counter**
+<img width="1186" height="573" alt="image" src="https://github.com/user-attachments/assets/bbfc679a-6838-4543-af7e-a6b13462cc30" />
+
 
 **TIMING DIGRAMS FOR 4 Bit Ripple Counter**
+![exp6desim](https://github.com/user-attachments/assets/4bf3eaa3-62b3-41af-8065-bf2b2f90dc43)
+
 
 **RESULTS**
 THE 4 BIT RIPPLE COUNTER IS VERIFIED SUCCESSFULLY.
